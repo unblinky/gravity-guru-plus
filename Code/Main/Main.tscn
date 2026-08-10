@@ -1,6 +1,38 @@
 [gd_scene format=3 uid="uid://b1wdu85kwpks7"]
 
 [ext_resource type="Script" uid="uid://b4r8xk7j4j4fv" path="res://Main/Main.gd" id="1_lxy7q"]
+[ext_resource type="PackedScene" uid="uid://krnjrtstit4m" path="res://Marble/Marble.tscn" id="2_83ytx"]
+[ext_resource type="PackedScene" uid="uid://cvkd56cc3u2qh" path="res://Maze/Maze.tscn" id="3_amygn"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_amygn"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ps1la"]
+sky_material = SubResource("ProceduralSkyMaterial_amygn")
+
+[sub_resource type="Environment" id="Environment_6aewd"]
+background_mode = 2
+sky = SubResource("Sky_ps1la")
 
 [node name="Main" type="Node" unique_id=1947799888]
 script = ExtResource("1_lxy7q")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1461531382]
+environment = SubResource("Environment_6aewd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1137493422]
+transform = Transform3D(0.8535508, -0.45120758, 0.26050478, 0, 0.49999997, 0.86602545, -0.5210096, -0.7391967, 0.42677537, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Marble" parent="." unique_id=53505551 instance=ExtResource("2_83ytx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3444748, 0)
+
+[node name="ObitRig" type="Node3D" parent="." unique_id=131009806]
+transform = Transform3D(1, 0, 0, 0, 0.8972669, 0.44148842, 0, -0.44148842, 0.8972669, 0, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="ObitRig" unique_id=1624297183]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1920929e-07, 3.6368227)
+
+[node name="Maze" parent="." unique_id=1192466497 instance=ExtResource("3_amygn")]
+transform = Transform3D(0.95506996, -0.28681296, -0.07469654, 0.24525172, 0.90630895, -0.34417394, 0.1664117, 0.31039077, 0.9359299, 0, 0, 0)

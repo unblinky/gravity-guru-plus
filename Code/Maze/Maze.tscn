@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cvkd56cc3u2qh"]
+
+[ext_resource type="Script" uid="uid://dajyvgavfggb4" path="res://Maze/Maze.gd" id="1_d5g1r"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fh211"]
+size = Vector3(10, 0.2, 12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fh211"]
+size = Vector3(10, 0.2, 12)
+
+[node name="Maze" type="StaticBody3D" unique_id=1192466497]
+script = ExtResource("1_d5g1r")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1903171985]
+mesh = SubResource("BoxMesh_fh211")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1264380654]
+shape = SubResource("BoxShape3D_fh211")

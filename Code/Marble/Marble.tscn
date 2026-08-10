@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://krnjrtstit4m"]
+
+[ext_resource type="Script" uid="uid://cateqncd330fc" path="res://Marble/Marble.gd" id="1_jnfbi"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fh211"]
+radius = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_fh211"]
+radius = 0.4
+height = 0.8
+
+[node name="Marble" type="RigidBody3D" unique_id=53505551]
+script = ExtResource("1_jnfbi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=999981870]
+shape = SubResource("SphereShape3D_fh211")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2129480917]
+mesh = SubResource("SphereMesh_fh211")
