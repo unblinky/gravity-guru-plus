@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://cateqncd330fc" path="res://Marble/Marble.gd" id="1_jnfbi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fh211"]
-radius = 0.4
+radius = 0.3
 
 [sub_resource type="SphereMesh" id="SphereMesh_fh211"]
-radius = 0.4
-height = 0.8
+radius = 0.3
+height = 0.6
 
 [node name="Marble" type="RigidBody3D" unique_id=53505551]
 script = ExtResource("1_jnfbi")

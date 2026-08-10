@@ -29,10 +29,10 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3444748, 0)
 
 [node name="ObitRig" type="Node3D" parent="." unique_id=131009806]
-transform = Transform3D(1, 0, 0, 0, 0.8972669, 0.44148842, 0, -0.44148842, 0.8972669, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.541633, 0.84061503, 0, -0.84061503, 0.541633, 0, 0, 0)
 
 [node name="Camera" type="Camera3D" parent="ObitRig" unique_id=1624297183]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1920929e-07, 3.6368227)
 
 [node name="Maze" parent="." unique_id=1192466497 instance=ExtResource("3_amygn")]
-transform = Transform3D(0.95506996, -0.28681296, -0.07469654, 0.24525172, 0.90630895, -0.34417394, 0.1664117, 0.31039077, 0.9359299, 0, 0, 0)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
