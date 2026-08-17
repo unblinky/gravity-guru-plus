@@ -32,7 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3444748, 0)
 transform = Transform3D(1, 0, 0, 0, 0.541633, 0.84061503, 0, -0.84061503, 0.541633, 0, 0, 0)
 
 [node name="Camera" type="Camera3D" parent="ObitRig" unique_id=1624297183]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1920929e-07, 3.6368227)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1920929e-07, 7.4284787)
 
 [node name="Maze" parent="." unique_id=1192466497 instance=ExtResource("3_amygn")]
 transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bp1e1efmmo45n"]
 
 [ext_resource type="PackedScene" uid="uid://c6156t67tron4" path="res://Wall/Wall.tscn" id="1_63o6j"]
+[ext_resource type="Script" uid="uid://cihklknh5hbs4" path="res://Room/Room.gd" id="1_fn5ws"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_63o6j"]
 size = Vector3(1, 0.09376172, 1)
@@ -9,6 +10,7 @@ size = Vector3(1, 0.09376172, 1)
 size = Vector3(1, 0.09376172, 1)
 
 [node name="Room" type="Node3D" unique_id=331072123]
+script = ExtResource("1_fn5ws")
 
 [node name="NorthWall" parent="." unique_id=1252313529 instance=ExtResource("1_63o6j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
