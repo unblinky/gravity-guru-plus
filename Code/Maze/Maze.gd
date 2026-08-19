@@ -26,8 +26,19 @@ func _process(delta: float) -> void:
 
 # Fill he grid with rooms.
 func generate(width, height): # unit is plot.
+	#var room_count: int = width * height
+	
+	# Plots on our grid.
+	var breadcrumbs: Array[Vector2] = [Vector2(0, 0)]
+	
+	# 3D Space.
+	var current_position: Vector3 = Vector3.ZERO
+	
 	for y in height:
 		for x in width:
+			
 			var room: Room = ROOM.instantiate()
-			room.position = Vector3(x, 0, y) - Vector3(width * 0.5 - 0.5, 0, height * 0.5 - 0.5)
 			add_child(room)
+			#room.position = current_position - Vector3(width * 0.5 - 0.5, 0, height * 0.5 - 0.5)
+			room.position += current_position + room.get_random_direction()
+			current_position = room.position
