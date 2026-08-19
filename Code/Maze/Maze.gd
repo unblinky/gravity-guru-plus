@@ -3,7 +3,7 @@ class_name Maze
 
 const ROOM = preload("res://Room/Room.tscn")
 
-var speed = 45 # degrees / sec.
+var tilt_speed = 60 # degrees / sec.
 
 func _ready() -> void:
 	var width = randi_range(1, 8)
@@ -15,13 +15,13 @@ func _process(delta: float) -> void:
 		get_tree().quit()
 	
 	if Input.is_action_pressed("tilt_north"):
-		rotation_degrees.x -= speed * delta
+		rotation_degrees.x -= tilt_speed * delta
 	if Input.is_action_pressed("tilt_east"):
-		rotation_degrees.z -= speed * delta
+		rotation_degrees.z -= tilt_speed * delta
 	if Input.is_action_pressed("tilt_south"):
-		rotation_degrees.x += speed * delta
+		rotation_degrees.x += tilt_speed * delta
 	if Input.is_action_pressed("tilt_west"):
-		rotation_degrees.z += speed * delta
+		rotation_degrees.z += tilt_speed * delta
 
 
 # Fill he grid with rooms.
@@ -36,9 +36,11 @@ func generate(width, height): # unit is plot.
 	
 	for y in height:
 		for x in width:
-			
+			await get_tree().create_timer(0.5).timeout
 			var room: Room = ROOM.instantiate()
 			add_child(room)
+			
+			# TODO: Recenter the maze
 			#room.position = current_position - Vector3(width * 0.5 - 0.5, 0, height * 0.5 - 0.5)
 			room.position += current_position + room.get_random_direction()
 			current_position = room.position
