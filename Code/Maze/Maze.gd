@@ -24,15 +24,54 @@ func _process(delta: float) -> void:
 		rotation_degrees.z += tilt_speed * delta
 
 
+# HACK:
+var visited_plots: Array[Vector2i] # Only grows.
+var current_plot: Vector2i = Vector2i.ZERO # TODO: Randomize the starting room's plot.
+
+func get_random_wall(room: Room) -> Vector2i:
+	
+	while room.walls.size() > 0:
+		var rando_wall: Wall = room.walls.pick_random()
+	
+		# TODO: Code dupe?
+		match rando_wall.direction:
+			Wall.Direction.NORTH:
+				if visited_plots.has(current_plot + Vector2i.UP):
+					room.walls.erase(rando_wall)
+					rando_wall.queue_free()
+				else:
+					return Vector2i.UP
+			Wall.Direction.EAST:
+				if visited_plots.has(current_plot + Vector2i.RIGHT):
+					room.walls.erase(rando_wall)
+					rando_wall.queue_free()
+				else:
+					return Vector2i.RIGHT
+			Wall.Direction.SOUTH:
+				if visited_plots.has(current_plot + Vector2i.DOWN):
+					room.walls.erase(rando_wall)
+					rando_wall.queue_free()
+				else:
+					return Vector2i.DOWN
+			Wall.Direction.WEST:
+				if visited_plots.has(current_plot + Vector2i.LEFT):
+					room.walls.erase(rando_wall)
+					rando_wall.queue_free()
+				else:
+					return Vector2i.LEFT
+	
+	print("Should never get here!")
+	return Vector2i(0, 0)
+
+
 # Fill he grid with rooms.
 func generate(width, height): # unit is plot.
 	#var room_count: int = width * height
 	
 	# Plots on our grid.
 	var breadcrumbs: Array[Vector2] = [Vector2(0, 0)] # Array changes size.
-	var visited_plots: Array[Vector2i] # Only grows.
+
 	
-	var current_plot: Vector2i = Vector2i.ZERO # TODO: Randomize the starting room's plot.
 	
 	
 	# HACK: 
@@ -49,20 +88,14 @@ func generate(width, height): # unit is plot.
 			var room: Room = ROOM.instantiate()
 			add_child(room)
 			
+			var next_plot = get_random_wall(room) + current_plot
+			visited_plots.append(next_plot)
+			room.position.x = next_plot.x
+			room.position.z = next_plot.y
 			
 			# TODO: Recenter the maze
 			#room.position = current_position - Vector3(width * 0.5 - 0.5, 0, height * 0.5 - 0.5)
 			
-			#var next_plot: Vector2i = (Vector2i.RIGHT + current_plot) * room.size
-			var next_plot: Vector2i = (room.get_random_direction() + current_plot) * room.size
-			
-			if not visited_plots.has(next_plot):
-				visited_plots.append(next_plot)
-			#else:
-				
-			
-			room.position.x += next_plot.x
-			room.position.z += next_plot.y
 			
 			# HACK: Just to see the room gen better.
 			upwards += 0.1
