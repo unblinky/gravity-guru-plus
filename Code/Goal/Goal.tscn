@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://brnj3jpbe8edv"]
+
+[ext_resource type="Script" uid="uid://sqhff0p6qjql" path="res://Goal/Goal.gd" id="1_prjlw"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fh211"]
+top_radius = 0.0
+bottom_radius = 0.313
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fh211"]
+size = Vector3(0.5966797, 1.651123, 0.59936523)
+
+[node name="Goal" type="Area3D" unique_id=1497709613]
+script = ExtResource("1_prjlw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=968342581]
+mesh = SubResource("CylinderMesh_fh211")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1696402482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12219238, 0)
+shape = SubResource("BoxShape3D_fh211")
