@@ -20,26 +20,46 @@ func _ready() -> void:
 	walls.append(west_wall)
 
 
-#
-#func open_passage(next_room: Room):
+func open_passage(next_room: Room):
 	## Heading North
-	#if next_room.plot.y < self.plot.y:
-		#north_wall.disable()
-		#walls.erase(north_wall)
-		#next_room.remove_wall(Vector2i.DOWN)
-	#
-	#d
+	if next_room.plot.y < self.plot.y:
+		north_wall.collider.disabled = true
+		walls.erase(north_wall)
+		north_wall.hide()
+		
+		next_room.south_wall.collider.disabled = true
+		next_room.walls.erase(south_wall)
+		next_room.south_wall.hide()
+
+
 	## Heading East
-	#if next_room.plot.x > self.plot.x:
-		#self.remove_wall(Vector2i.RIGHT)
-		#next_room.remove_wall(Vector2i.LEFT)
-	#
+	if next_room.plot.x > self.plot.x:
+		east_wall.collider.disabled = true
+		walls.erase(east_wall)
+		east_wall.hide()
+		
+		next_room.west_wall.collider.disabled = true
+		next_room.walls.erase(west_wall)
+		next_room.west_wall.hide()
+
+
 	## Heading South
-	#if next_room.plot.y > self.plot.y:
-		#self.remove_wall(Vector2i.DOWN)
-		#next_room.remove_wall(Vector2i.UP)
-	#
+	if next_room.plot.y > self.plot.y:
+		south_wall.collider.disabled = true
+		walls.erase(south_wall)
+		south_wall.hide()
+		
+		next_room.north_wall.collider.disabled = true
+		next_room.walls.erase(north_wall)
+		next_room.north_wall.hide()
+
+
 	## Heading West
-	#if next_room.plot.x < self.plot.x:
-		#self.remove_wall(Vector2i.LEFT)
-		#next_room.remove_wall(Vector2i.RIGHT)
+	if next_room.plot.x < self.plot.x:
+		west_wall.collider.disabled = true
+		walls.erase(west_wall)
+		west_wall.hide()
+		
+		next_room.east_wall.collider.disabled = true
+		next_room.walls.erase(east_wall)
+		next_room.east_wall.hide()

@@ -6,4 +6,7 @@ func _ready() -> void:
 
 
 func on_body_entered(body: Node3D):
-	print("GoALL!!!!")
+	if body is Marble:
+		print("MARBLE GoALL!!!!")
+		# TODO: What is the level difficulty?
+		get_tree().reload_current_scene.call_deferred()

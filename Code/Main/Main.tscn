@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://b1wdu85kwpks7"]
 
 [ext_resource type="Script" uid="uid://b4r8xk7j4j4fv" path="res://Main/Main.gd" id="1_lxy7q"]
-[ext_resource type="PackedScene" uid="uid://krnjrtstit4m" path="res://Marble/Marble.tscn" id="2_83ytx"]
 [ext_resource type="PackedScene" uid="uid://cvkd56cc3u2qh" path="res://Maze/Maze.tscn" id="3_amygn"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_amygn"]
@@ -24,9 +23,6 @@ environment = SubResource("Environment_6aewd")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1137493422]
 transform = Transform3D(0.8535508, -0.45120758, 0.26050478, 0, 0.49999997, 0.86602545, -0.5210096, -0.7391967, 0.42677537, 0, 0, 0)
 shadow_enabled = true
-
-[node name="Marble" parent="." unique_id=53505551 instance=ExtResource("2_83ytx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3444748, 0)
 
 [node name="ObitRig" type="Node3D" parent="." unique_id=131009806]
 transform = Transform3D(1, 0, 0, 0, 0.541633, 0.84061503, 0, -0.84061503, 0.541633, 0, 0, 0)

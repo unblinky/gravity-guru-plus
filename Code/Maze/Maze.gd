@@ -3,14 +3,16 @@ class_name Maze
 
 const ROOM = preload("res://Room/Room.tscn")
 const GOAL = preload("res://Goal/Goal.tscn")
+const MARBLE = preload("res://Marble/Marble.tscn")
+
 
 var tilt_speed = 60 # degrees / sec.
 var goal: Goal
 
 func _ready() -> void:
-	goal = GOAL.instantiate()
-	add_child(goal)
 	generate(4, 4)
+	spawn_marble()
+
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("quit"):
@@ -25,6 +27,13 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("tilt_west"):
 		rotation_degrees.z += tilt_speed * delta
 
+
+func spawn_marble():
+	var marble: Marble = MARBLE.instantiate()
+	marble.position = Vector3(0, 5, 0)
+	marble.starting_position = marble.position
+	get_parent().add_child.call_deferred(marble)
+	print("MARBLE SPAWNED!!!!!")
 
 
 # Fill he grid with rooms.
@@ -46,6 +55,8 @@ func generate(width: int, height: int): # unit is plot.
 	visited_plots.append(current_plot)
 	breadcrumbs.append(current_room)
 	
+	## Generate Room Loop.
+	# TODO: Why is the last room not spawning, intermitently.
 	while visited_plots.size() < room_count:
 		await get_tree().create_timer(0.1).timeout
 		
@@ -64,15 +75,11 @@ func generate(width: int, height: int): # unit is plot.
 			var south_side: Vector2i = current_plot + Vector2i.DOWN
 			if not visited_plots.has(south_side):
 				current_room.neighbors.append(south_side)
-
+		
 		if current_plot.x > 0:
 			var west_side: Vector2i = current_plot + Vector2i.LEFT
 			if not visited_plots.has(west_side):
 				current_room.neighbors.append(west_side)
-		
-		goal.position.x = current_plot.x - camera_offset.x
-		goal.position.z = current_plot.y - camera_offset.y
-		print("Visited plots: ", visited_plots)
 
 		# Pick up a breadcrumb.
 		if current_room.neighbors.is_empty():
@@ -82,21 +89,26 @@ func generate(width: int, height: int): # unit is plot.
 			
 			# FIXME: Next Room Code Dup?
 			var next_room: Room = ROOM.instantiate()
-			#next_room.maze = self
 			next_room.plot = neighbor_plot
 			next_room.position.x = neighbor_plot.x - camera_offset.x
 			next_room.position.z = neighbor_plot.y - camera_offset.y
 			add_child(next_room)
+			current_room.open_passage(next_room)
 			breadcrumbs.append(next_room)
 			visited_plots.append(next_room.plot)
-			print(visited_plots)
-			# end dup?
-	
 			current_room = next_room
 			current_plot = neighbor_plot
+			
+			## Spawn the Goal.
+			if visited_plots.size() >= room_count:
+				goal = GOAL.instantiate()
+				goal.position.x = current_plot.x - camera_offset.x
+				goal.position.z = current_plot.y - camera_offset.y
+				add_child(goal)
 	
-	
-	
+
+
+
 	
 	# HACK: 
 	#var upwards: float = 0.0

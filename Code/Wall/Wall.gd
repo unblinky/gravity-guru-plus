@@ -8,4 +8,5 @@ enum Direction {
 	WEST
 }
 
+@onready var collider: CollisionShape3D = $CollisionShape3D
 @export var direction: Direction
