@@ -5,13 +5,10 @@ const ROOM = preload("res://Room/Room.tscn")
 const GOAL = preload("res://Goal/Goal.tscn")
 const MARBLE = preload("res://Marble/Marble.tscn")
 
-
+var main: Main
+var camera_offset: Vector2i
 var tilt_speed = 60 # degrees / sec.
 var goal: Goal
-
-func _ready() -> void:
-	generate(4, 4)
-	spawn_marble()
 
 
 func _process(delta: float) -> void:
@@ -27,19 +24,27 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("tilt_west"):
 		rotation_degrees.z += tilt_speed * delta
 
+func plot_to_position(plot: Vector2i):
+	var space: Vector3
+	space.x = plot.x - camera_offset.x
+	space.y = 0
+	space.z = plot.y - camera_offset.y
+	return space
 
-func spawn_marble():
+
+func spawn_marble(plot: Vector2i):
 	var marble: Marble = MARBLE.instantiate()
-	marble.position = Vector3(0, 5, 0)
+	marble.position = plot_to_position(plot)
+	marble.position.y = 5.0
 	marble.starting_position = marble.position
 	get_parent().add_child.call_deferred(marble)
 	print("MARBLE SPAWNED!!!!!")
 
 
-# Fill he grid with rooms.
-func generate(width: int, height: int): # unit is plot.
+## Fill the grid with rooms.
+func generate_rooms(width: int, height: int): # unit is plot.
 	var room_count: int = width * height
-	var camera_offset: Vector2 = Vector2((width / 2.0) - 0.5, (height / 2.0) - 0.5)
+	camera_offset = Vector2((width / 2.0) - 0.5, (height / 2.0) - 0.5)
 
 	var visited_plots: Array[Vector2i] # Only grows.
 	var current_plot: Vector2i = Vector2i.ZERO # TODO: Randomize the starting room's plot.
@@ -99,12 +104,15 @@ func generate(width: int, height: int): # unit is plot.
 			current_room = next_room
 			current_plot = neighbor_plot
 			
-			## Spawn the Goal.
+			## If spawning the last room...
+			## Spawn Goal and Marble.
 			if visited_plots.size() >= room_count:
 				goal = GOAL.instantiate()
+				goal.main = main
 				goal.position.x = current_plot.x - camera_offset.x
 				goal.position.z = current_plot.y - camera_offset.y
 				add_child(goal)
+				spawn_marble(visited_plots[0])
 	
 
 
