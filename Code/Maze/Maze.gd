@@ -6,9 +6,9 @@ const GOAL = preload("res://Goal/Goal.tscn")
 const MARBLE = preload("res://Marble/Marble.tscn")
 
 var main: Main
+var goal: Goal
 var camera_offset: Vector2i
 var tilt_speed = 60 # degrees / sec.
-var goal: Goal
 
 
 func _process(delta: float) -> void:

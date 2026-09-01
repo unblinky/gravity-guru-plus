@@ -10,6 +10,7 @@ func on_body_entered(body: Node3D):
 	if body is Marble:
 		print("MARBLE GoALL!!!!")
 		main.make_maze()
+		body.queue_free()
 		
 		
 		
